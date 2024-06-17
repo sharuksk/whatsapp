@@ -18,10 +18,6 @@ export default function CreateContactPage() {
 
   useEffect(() => {
     try {
-<<<<<<< HEAD
-=======
-      console.log(contact);
->>>>>>> 4a40780c8889de48ef17dbc976686d1b35c7ba12
       if (contact) {
         setName(contact.name);
         setNumber(contact.number);
@@ -34,11 +30,6 @@ export default function CreateContactPage() {
   let handleSubmit = async () => {
     try {
       if (!contact) {
-<<<<<<< HEAD
-=======
-        console.log(name, number);
-
->>>>>>> 4a40780c8889de48ef17dbc976686d1b35c7ba12
         let dataObj = {
           name: name,
           number: number,
@@ -46,18 +37,9 @@ export default function CreateContactPage() {
         await axios
           .post(`${linkNode}/setcontacts`, { ...dataObj, user })
           .then((res) => {
-<<<<<<< HEAD
             navigate("../contacts");
           });
       } else {
-=======
-            console.log(res.data.message);
-            navigate("../contacts");
-          });
-      } else {
-        console.log(name, number);
-
->>>>>>> 4a40780c8889de48ef17dbc976686d1b35c7ba12
         let dataObj = {
           name: name,
           number: number,
@@ -65,10 +47,6 @@ export default function CreateContactPage() {
         await axios
           .post(`${linkNode}/editcontacts`, { dataObj, contact })
           .then((res) => {
-<<<<<<< HEAD
-=======
-            console.log(res.data.message);
->>>>>>> 4a40780c8889de48ef17dbc976686d1b35c7ba12
             navigate("../contacts");
           });
       }
@@ -118,22 +96,14 @@ export default function CreateContactPage() {
               />
             </div>
           </div>
-<<<<<<< HEAD
           <button
-=======
-          <div
->>>>>>> 4a40780c8889de48ef17dbc976686d1b35c7ba12
             className="submitInDiv"
             onClick={() => {
               handleSubmit();
             }}
           >
             submit
-<<<<<<< HEAD
           </button>
-=======
-          </div>
->>>>>>> 4a40780c8889de48ef17dbc976686d1b35c7ba12
         </div>
       </div>
     </div>
