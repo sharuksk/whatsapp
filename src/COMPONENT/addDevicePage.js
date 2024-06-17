@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { linkNode } from "../nodelink";
 import axios from "axios";
 import "../SCSS/contactsPage.scss";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function AddDevicesPage() {
   const navigate = useNavigate();
