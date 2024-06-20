@@ -18,7 +18,7 @@
     "buffer": "^6.0.3",
     "dayjs": "^1.11.10",
     "face-api.js": "^0.20.0",
-    "firebase": "^10.7.2",
+    "firebase": "^10.12.2",
     "multiselect-react-dropdown": "^2.0.25",
     "qs": "^6.11.2",
     "react": "^18.2.0",

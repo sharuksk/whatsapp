@@ -19,6 +19,7 @@ import DangerousIcon from "@mui/icons-material/Dangerous";
 import CrisisAlertIcon from "@mui/icons-material/CrisisAlert";
 // import { Buffer } from "buffer";
 import { useParams } from "react-router-dom";
+import Loading from "./loader";
 
 export default function ManageDevicesPage() {
   const device = useSelector((state) => state.contactReducer.device);
@@ -28,17 +29,15 @@ export default function ManageDevicesPage() {
   const [qqq, setq] = useState("");
   const [insID, setInsID] = useState("");
   const [insTok, setInsTok] = useState("");
+  const [loading, setLoading] = useState(false);
   // const insID = "instance77326";
   // const insTok = "tz4c7nm9r4luh6i4";
   const dispatch = useDispatch();
   const [status, setStatus] = useState(false);
+
   const { id } = useParams();
 
   useEffect(() => {
-    console.log("device )))))))))))))))))))))))))");
-    console.log(device);
-    console.log("device )))))))))))))))))))))))))");
-
     setInsID(device.instanceID);
     setInsTok(device.token);
 
@@ -61,7 +60,7 @@ export default function ManageDevicesPage() {
   useEffect(() => {
     try {
       console.log(device);
-      setAuth(device.authenthicate);
+      // setAuth(device.authenthicate);
       if (auth || device.authenthicate) {
         console.log("hrl");
         handleMessageStatus();
@@ -74,7 +73,8 @@ export default function ManageDevicesPage() {
 
   useEffect(() => {
     try {
-      setStatus(false);
+      setStatus(false); ///////////////////////////////////
+      getStatus(device.token, device.instanceID);
     } catch (err) {
       console.log(err);
     }
@@ -118,10 +118,9 @@ export default function ManageDevicesPage() {
   //   handleInstanceStatus(dataObj);
   // };
 
-  const handleVerify = () => {
-    console.log(insID);
-    console.log(insTok);
+  const handleVerify = async () => {
     try {
+      setLoading(true);
       let config = {
         method: "get",
         url: `https://api.ultramsg.com/${insID}/instance/qr`,
@@ -132,53 +131,75 @@ export default function ManageDevicesPage() {
           token: insTok,
         },
       };
-
-      axios(config)
+      await axios(config)
         .then(function (response) {
-          setq(`https://api.ultramsg.com/${insID}/instance/qr?token=${insTok}`);
           setChance(true);
-          // setTimeout(()=>{},)
-          //setStatus(true);
-
-          let i = 0;
-          let startFun = async () => {
-            i++;
-            console.log(i);
-            if (i === 40) {
-              clearInterval(startRun);
-              await handleInstanceStatus(device);
-
-              setChance(false);
-              //instance status
-              //handleInstanceStatus(dataObj);
-              //
-            }
-          };
-          let startRun = setInterval(startFun, 2000);
-
-          // await
+          setq(`https://api.ultramsg.com/${insID}/instance/qr?token=${insTok}`);
         })
         .catch(function (error) {
           console.log(error);
+        })
+        .finally(() => {
+          setLoading(false);
         });
+
+      let i = 0;
+      let startFun = async () => {
+        i++;
+
+        const status = await getStatus(insTok, insID);
+
+        if (status === "authenticated") {
+          clearInterval(startRun);
+          await handleInstanceStatus(device);
+        }
+        console.log(i);
+        if (i === 20) {
+          clearInterval(startRun);
+
+          setChance(false);
+        }
+      };
+      let startRun = setInterval(startFun, 2000);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
+  };
+  const getStatus = async (token, instance) => {
+    var config = {
+      method: "get",
+      url: `https://api.ultramsg.com/${instance}/instance/status`,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      params: { token },
+    };
+
+    const status = await axios(config)
+      .then(function (res) {
+        console.log(JSON.stringify(res.data));
+        console.log(res?.data?.status?.accountStatus?.status);
+        if (res?.data?.status?.accountStatus?.status === "authenticated")
+          setAuth(true);
+        return res?.data?.status?.accountStatus?.status;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    return status;
   };
 
   const handleInstanceStatus = async (dataObj) => {
+    console.log("handling instance status");
     try {
       await axios.post(`${linkNode}/instance`, dataObj).then(async (res) => {
-        console.log("***************");
-
-        console.log(res.data);
-        console.log("***************");
-
-        if (res.data?.message === "authenticated") {
-          setAuth(true);
+        if (res.data?.message === "success") {
           dispatch(funSetDevice({ ...dataObj, authenthicate: true }));
           // await handleInstanceChange(dataObj);
-        } else if (res.data?.message === "standby") {
+        } else {
           setAuth(false);
           dispatch(funSetDevice({ ...dataObj, authenthicate: false }));
         }
@@ -272,7 +293,7 @@ export default function ManageDevicesPage() {
                     handleVerify();
                   }}
                 >
-                  Verify
+                  {loading ? <Loading /> : "Verify"}
                 </div>
               </div>
             </div>
