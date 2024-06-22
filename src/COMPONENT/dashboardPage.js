@@ -42,60 +42,60 @@ export function DashBoardPage() {
           {user.role === "admin" ? "Admin " : "User "}DashBoard
         </div>
       </div>
-      <div className="parent-flex-db">
-        <div className="empty-spacing"></div>
-        <div className="flex-tile-db">
-          <div className="tile-row1">
-            <div className="tiles-db">
-              <div className="number-tile" style={{ color: "green" }}>
-                {status?.Active}
+      <div className="div__container">
+        <div className="parent-flex-db">
+          <div className="flex-tile-db">
+            <div className="tile-row1">
+              <div className="tiles-db">
+                <div className="number-tile" style={{ color: "green" }}>
+                  {status?.Active}
+                </div>
+                <div>
+                  Active <LayersIcon />
+                </div>
               </div>
-              <div>
-                Active <LayersIcon />
+              <div className="tiles-db">
+                <div className="number-tile" style={{ color: "#000d2452" }}>
+                  {status?.Inactive}
+                </div>
+                <div>
+                  Inactive <LayersIcon />
+                </div>
+              </div>
+              <div className="tiles-db">
+                <div className="number-tile" style={{ color: "red" }}>
+                  {status?.Expired}
+                </div>
+                <div>
+                  Expired <LayersIcon />
+                </div>
               </div>
             </div>
-            <div className="tiles-db">
-              <div className="number-tile" style={{ color: "#000d2452" }}>
-                {status?.Inactive}
+            <div className="tile-row1">
+              <div className="tiles-db">
+                <div className="number-tile" style={{ color: "#000d2452" }}>
+                  10
+                </div>
+                <div>Send</div>
               </div>
-              <div>
-                Inactive <LayersIcon />
+              <div className="tiles-db">
+                <div className="number-tile" style={{ color: "#000d2452" }}>
+                  10
+                </div>
+                <div>Unsend</div>
               </div>
-            </div>
-            <div className="tiles-db">
-              <div className="number-tile" style={{ color: "red" }}>
-                {status?.Expired}
-              </div>
-              <div>
-                Expired <LayersIcon />
+              <div className="tiles-db">
+                <div className="number-tile" style={{ color: "#000d2452" }}>
+                  10
+                </div>
+                <div>Pending</div>
               </div>
             </div>
           </div>
-          <div className="tile-row1">
-            <div className="tiles-db">
-              <div className="number-tile" style={{ color: "#000d2452" }}>
-                10
-              </div>
-              <div>Active</div>
-            </div>
-            <div className="tiles-db">
-              <div className="number-tile" style={{ color: "#000d2452" }}>
-                10
-              </div>
-              <div>Inactive</div>
-            </div>
-            <div className="tiles-db">
-              <div className="number-tile" style={{ color: "#000d2452" }}>
-                10
-              </div>
-              <div>Expired</div>
-            </div>
-          </div>
-        </div>
-        <div className="flex-chart-db">
-          <div className="chart-area-db">
-            <h3 style={{}}>Message Count Details</h3>
-            {/* <PieChart
+          <div className="flex-chart-db">
+            <div className="chart-area-db">
+              <h3 style={{}}>Message Count Details</h3>
+              {/* <PieChart
                 colors={['red', 'blue', 'green']} // Use palette
                 series={[
                   {
@@ -108,29 +108,29 @@ export function DashBoardPage() {
                   },
                 ]}
               /> */}
-            <PieChart
-              series={[
-                {
-                  data: [
-                    { value: 30, color: "#29fc18", label: "Sent" },
-                    { value: 15, color: "#e5ee4a", label: "Pending" },
-                    { value: 10, color: "#ed8d85", label: "Un-Sent" },
-                  ],
-                  innerRadius: 30,
-                  outerRadius: 100,
-                  paddingAngle: 5,
-                  cornerRadius: 5,
-                  startAngle: -90,
-                  endAngle: 180,
-                  cx: 150,
-                  cy: 150,
-                },
-              ]}
-            />
+              <PieChart
+                series={[
+                  {
+                    data: [
+                      { value: 30, color: "#29fc18", label: "Sent" },
+                      { value: 15, color: "#e5ee4a", label: "Pending" },
+                      { value: 10, color: "#ede19f", label: "Un-Sent" },
+                    ],
+                    innerRadius: 30,
+                    outerRadius: 100,
+                    paddingAngle: 5,
+                    cornerRadius: 5,
+                    startAngle: -90,
+                    endAngle: 180,
+                    cx: 150,
+                    cy: 150,
+                  },
+                ]}
+              />
+            </div>
           </div>
         </div>
-      </div>
-      {/* <div className="bodyA">
+        {/* <div className="bodyA">
         <div className="bodyDash">
           <div className="activeDiv">
             <div className="activeTop">
@@ -206,16 +206,17 @@ export function DashBoardPage() {
           </div>
         </div>
       </div> */}
-      <div className="chart-container">
-        <LineChart
-          xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
-          series={[
-            {
-              data: [2, 5.5, 2, 8.5, 1.5, 5],
-            },
-          ]}
-          height={400}
-        />
+        <div className="chart-container">
+          <LineChart
+            xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
+            series={[
+              {
+                data: [2, 5.5, 2, 8.5, 1.5, 5],
+              },
+            ]}
+            height={400}
+          />
+        </div>
       </div>
     </div>
   );
