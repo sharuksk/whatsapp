@@ -113,7 +113,7 @@ export function DashBoardPage() {
                   {
                     data: [
                       { value: 30, color: "#29fc18", label: "Sent" },
-                      { value: 15, color: "#e5ee4a", label: "Pending" },
+                      { value: 15, color: "#e5ee4a", label: "Bot" },
                       { value: 10, color: "#ede19f", label: "Un-Sent" },
                     ],
                     innerRadius: 30,
