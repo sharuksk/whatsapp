@@ -171,8 +171,8 @@ export default function CreateScheduler() {
     const handleSend = async () => {
         try {
             let dataObj = {
-                to: selectedOption,
-                from: selected,
+                to: selected,
+                from: selectedOption,
                 file: url,
                 fileName: docTitle,
                 body: bodyText,
@@ -180,7 +180,10 @@ export default function CreateScheduler() {
                 lng: lgnText,
                 type: show,
                 date: selectedDate,
+                instanceID: selectedOption.instanceID,
+                token: selectedOption.token,
             };
+            console.log(dataObj);
             await axios
                 .post(`${linkNode}/createsch`, { dataObj, user })
                 .then((res) => {
@@ -194,8 +197,8 @@ export default function CreateScheduler() {
     const handleEdit = async () => {
         try {
             let dataObj = {
-                to: selectedOption,
-                from: selected,
+                to: selected,
+                from: selectedOption,
                 file: url,
                 fileName: docTitle,
                 body: bodyText,
@@ -315,12 +318,13 @@ export default function CreateScheduler() {
                                     <div className="toDiv">
                                         <div className="spanA">From:</div>
                                         <div className="spanB">
-                                            <MultiSelect
-                                                id="multiSelect"
+                                            <Select
+                                                placeholder="From"
+                                                id="selectTag"
+                                                value={selectedOption}
+                                                // defaultValue={selectedOption}
+                                                onChange={setSelectedOption}
                                                 options={fromOptions}
-                                                value={selected}
-                                                onChange={setSelected}
-                                                labelledBy="Select"
                                             />
                                         </div>
                                     </div>
@@ -328,13 +332,12 @@ export default function CreateScheduler() {
                                     <div className="toDiv">
                                         <div className="spanA">To:</div>
                                         <div className="spanB">
-                                            <Select
-                                                placeholder="To"
-                                                id="selectTag"
-                                                value={selectedOption}
-                                                // defaultValue={selectedOption}
-                                                onChange={setSelectedOption}
+                                            <MultiSelect
+                                                id="multiSelect"
                                                 options={toOptions}
+                                                value={selected}
+                                                onChange={setSelected}
+                                                labelledBy="Select"
                                             />
                                         </div>
                                     </div>

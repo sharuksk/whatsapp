@@ -5,30 +5,34 @@ import { DeleteRounded } from "@mui/icons-material";
 import "../SCSS/replypage.scss";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { useNavigate } from "react-router-dom";
-
+import Skleton from "./skleton.jsx";
 import { funSetContact } from "../reactRedux/action";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { linkNode } from "../nodelink";
 import axios from "axios";
+import Pagenation from "./pagenation";
 import { useSelector } from "react-redux";
 
 export default function SchedulerPage() {
     // const [devices, setDevices] = useState([]);
     const [messages, setMessages] = useState([]);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     // const dispatch = useDispatch();
     const [status, setStatus] = useState(false);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
     const user = useSelector((state) => state.userReducer.user);
 
     useEffect(() => {
         try {
-            handleGetSch();
+            handleGetSch(page);
             setStatus(false);
         } catch (err) {
             console.log(err);
         }
-    }, [status]);
+    }, [status, page]);
 
     // const handleEditContact = (data) => {
     //   try {
@@ -39,14 +43,20 @@ export default function SchedulerPage() {
     //   }
     // };
 
-    const handleGetSch = async () => {
+    const handleGetSch = async (pagee) => {
         try {
-            await axios.post(`${linkNode}/getsch`, { user }).then((res) => {
-                console.log(res.data.msg);
-                setMessages(res.data?.msg?.reverse());
-            });
+            setLoading(true);
+            await axios
+                .post(`${linkNode}/getsch?page=${pagee}`, { user })
+                .then((res) => {
+                    console.log(res.data.msg);
+                    setMessages(res.data?.msg?.reverse());
+                    setTotalPages(res.data?.pagination?.totalPage);
+                });
         } catch (err) {
             console.log(err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -63,7 +73,7 @@ export default function SchedulerPage() {
 
     const HandleFrom = (data) => {
         try {
-            let contacts = data?.from;
+            let contacts = data?.to;
             let fromNames = [];
 
             for (let i = 0; i < contacts.length; i++) {
@@ -137,63 +147,92 @@ export default function SchedulerPage() {
                                 <td className="thE">Message Type</td>
                                 <td className="thF">Action</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {messages.length &&
-                                messages.map((data) => {
-                                    return (
-                                        <tr>
-                                            <td>{HandleFrom(data)}</td>
-                                            <td>{data.to.label}</td>
-                                            <td>{data?.date}</td>
-                                            <td>{data.type}</td>
-                                            {<td>{data.body}</td>}
-                                            <td className="tdE">
-                                                <button
-                                                    onClick={() => {
-                                                        // handleEditContact(data);
-                                                        navigate(
-                                                            `../editsch/${data._id}`,
-                                                        );
-                                                        console.log(data);
-                                                    }}
-                                                    className="rocketBtn"
-                                                    style={{
-                                                        backgroundColor: "blue",
-                                                    }}
-                                                >
-                                                    <span className="rocketIcon">
-                                                        <ModeEditIcon id="rocketIcon" />
-                                                    </span>
-                                                    <span className="rocketTitle">
-                                                        Edit
-                                                    </span>
-                                                </button>
-                                                <button
-                                                    className="rocketBtn"
-                                                    style={{
-                                                        backgroundColor:
-                                                            "#f15438",
-                                                    }}
-                                                    onClick={() => {
-                                                        handleDeleteSch(data);
-                                                    }}
-                                                >
-                                                    <span className="rocketIcon">
-                                                        <DeleteRounded id="rocketIcon" />
-                                                    </span>
-                                                    <span className="rocketTitle">
-                                                        Delete
-                                                    </span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                        </tbody>
+                        </thead>{" "}
+                        {!loading ? (
+                            <tbody>
+                                {messages.length &&
+                                    messages.map((data) => {
+                                        return (
+                                            <tr>
+                                                <td>{data?.from?.label}</td>
+                                                <td>{HandleFrom(data)}</td>
+                                                <td>{data?.date}</td>
+                                                <td>{data.type}</td>
+                                                {<td>{data.body}</td>}
+                                                <td className="tdE">
+                                                    <button
+                                                        onClick={() => {
+                                                            // handleEditContact(data);
+                                                            navigate(
+                                                                `../editsch/${data._id}`,
+                                                            );
+                                                            console.log(data);
+                                                        }}
+                                                        className="rocketBtn"
+                                                        style={{
+                                                            backgroundColor:
+                                                                "blue",
+                                                        }}
+                                                    >
+                                                        <span className="rocketIcon">
+                                                            <ModeEditIcon id="rocketIcon" />
+                                                        </span>
+                                                        <span className="rocketTitle">
+                                                            Edit
+                                                        </span>
+                                                    </button>
+                                                    <button
+                                                        className="rocketBtn"
+                                                        style={{
+                                                            backgroundColor:
+                                                                "#f15438",
+                                                        }}
+                                                        onClick={() => {
+                                                            handleDeleteSch(
+                                                                data,
+                                                            );
+                                                        }}
+                                                    >
+                                                        <span className="rocketIcon">
+                                                            <DeleteRounded id="rocketIcon" />
+                                                        </span>
+                                                        <span className="rocketTitle">
+                                                            Delete
+                                                        </span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                            </tbody>
+                        ) : (
+                            <tr>
+                                <td>
+                                    {" "}
+                                    <Skleton />
+                                </td>
+                                <td>
+                                    {" "}
+                                    <Skleton />
+                                </td>
+                                <td>
+                                    {" "}
+                                    <Skleton />
+                                </td>
+                                <td>
+                                    {" "}
+                                    <Skleton />
+                                </td>
+                                <td>
+                                    {" "}
+                                    <Skleton />
+                                </td>
+                            </tr>
+                        )}
                     </table>
                 </div>
             </div>
+            <Pagenation totalPages={totalPages} setPage={setPage} page={page} />
         </div>
     );
 }

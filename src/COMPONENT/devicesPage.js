@@ -8,12 +8,17 @@ import { useEffect } from "react";
 import { linkNode } from "../nodelink";
 import axios from "axios";
 import "../SCSS/devicesPage.scss";
+import Skleton from "./skleton.jsx";
+import Pagenation from "./pagenation";
 
 import { funSetDevice } from "../reactRedux/action";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function DevicesPage() {
   const [devices, setDevices] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.userReducer.user);
@@ -21,21 +26,27 @@ export default function DevicesPage() {
 
   useEffect(() => {
     try {
-      handleGetDevicesApi();
+      handleGetDevicesApi(page);
       console.log(device);
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [page]);
 
-  const handleGetDevicesApi = async () => {
+  const handleGetDevicesApi = async (pagee) => {
     try {
-      await axios.post(`${linkNode}/getdevice`, { user }).then((res) => {
-        console.log(res.data.arrData);
-        setDevices(res.data.arrData);
-      });
+      setLoading(true);
+      await axios
+        .post(`${linkNode}/getdevice?page=${pagee}&pagenate=true`, { user })
+        .then((res) => {
+          console.log(res.data.arrData);
+          setDevices(res.data.arrData);
+          setTotalPages(res.data?.pagination?.totalPage);
+        });
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -78,58 +89,84 @@ export default function DevicesPage() {
                 <td className="thD">status</td>
               </tr>
             </thead>
-            <tbody>
-              {devices?.length &&
-                devices.map((data) => {
-                  return (
-                    <tr>
-                      <td className="tdA">
-                        <div className="accSpan">
-                          <AccountCircleIcon id="accIcon" />
-                        </div>
-                        <div className="idSpan">{data.instanceID}</div>
-                        <div className="nameNo">
-                          <div className="name">{data.name}</div>
-                          <div className="no">
-                            {data.code}
-                            {data.number}
+            {!loading ? (
+              <tbody>
+                {devices?.length &&
+                  devices.map((data) => {
+                    return (
+                      <tr>
+                        <td className="tdA">
+                          <div className="accSpan">
+                            <AccountCircleIcon id="accIcon" />
                           </div>
-                        </div>
-                      </td>
-                      <td>{data.created}</td>
-                      <td>{data.created}</td>
-                      <td>
-                        <span className={`success ${data.status}`}>
-                          {data.status}
-                        </span>
-                      </td>
-                      <td className="tdE">
-                        <button
-                          className="rocketBtn"
-                          onClick={() => {
-                            dispatch(funSetDevice(data));
-                            navigate(`../managedevices/${data._id}`);
-                          }}
-                        >
-                          <span className="rocketIcon">
-                            <RocketIcon id="rocketIcon" />
+                          <div className="idSpan">{data.instanceID}</div>
+                          <div className="nameNo">
+                            <div className="name">{data.name}</div>
+                            <div className="no">
+                              {data.code}
+                              {data.number}
+                            </div>
+                          </div>
+                        </td>
+                        <td>{data.created}</td>
+                        <td>{data.created}</td>
+                        <td>
+                          <span className={`success ${data.status}`}>
+                            {data.status}
                           </span>
-                          <span className="rocketTitle  ">Manage</span>
-                        </button>
-                        <button className="rocketBtn paybtn">
-                          <span className="rocketIcon">
-                            <PaymentIcon id="rocketIcon" />
-                          </span>
-                          <span className="rocketTitle">Pay</span>
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
+                        </td>
+                        <td className="tdE">
+                          <button
+                            className="rocketBtn"
+                            onClick={() => {
+                              dispatch(funSetDevice(data));
+                              navigate(`../managedevices/${data._id}`);
+                            }}
+                          >
+                            <span className="rocketIcon">
+                              <RocketIcon id="rocketIcon" />
+                            </span>
+                            <span className="rocketTitle  ">Manage</span>
+                          </button>
+                          <button className="rocketBtn paybtn">
+                            <span className="rocketIcon">
+                              <PaymentIcon id="rocketIcon" />
+                            </span>
+                            <span className="rocketTitle">Pay</span>
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            ) : (
+              <tr>
+                <td>
+                  {" "}
+                  <Skleton />
+                </td>
+                <td>
+                  {" "}
+                  <Skleton />
+                </td>
+                <td>
+                  {" "}
+                  <Skleton />
+                </td>
+                <td>
+                  {" "}
+                  <Skleton />
+                </td>
+                <td>
+                  {" "}
+                  <Skleton />
+                </td>
+              </tr>
+            )}
           </table>
         </div>
       </div>
+      <Pagenation totalPages={totalPages} setPage={setPage} page={page} />
     </div>
   );
 }

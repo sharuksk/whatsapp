@@ -69,6 +69,7 @@
   table {
     min-width: 100%;
     overflow: scroll;
+    border: solid 1px gray;
   }
   .thA {
     display: flex;
@@ -79,8 +80,8 @@
   thead,
   tbody,
   tr {
-    border: solid 1px gray;
     border-collapse: collapse;
+    border: solid 1px gray;
   }
   td,
   th {
@@ -213,6 +214,7 @@
   .submitInDiv {
     font-size: 13px;
     border-radius: 20px;
+    border: none;
     //background-color: #1f8be1;
     background: linear-gradient(to right, #29fc18, #e5ee4a);
     color: white;
