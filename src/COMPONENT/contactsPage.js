@@ -31,7 +31,15 @@ export default function ContactsPage() {
         } catch (err) {
             console.log(err);
         }
-    }, [status, page]);
+    }, [status]);
+
+    useEffect(() => {
+        try {
+            handleGetContacts(page);
+        } catch (err) {
+            console.log(err);
+        }
+    }, [page]);
 
     const handleEditContact = (data) => {
         try {
