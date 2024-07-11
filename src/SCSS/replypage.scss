@@ -19,7 +19,7 @@ $base-color: #8A1538;
     padding: 0px;
     font-family: "Ubuntu", sans-serif !important;
     //background-color: #46a24a;
-    background: linear-gradient(to right, $base-color, #544c4c);
+    background-color: $base-color;
     border: none;
     color: white;
     font-size: 13px !important;

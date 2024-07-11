@@ -25,7 +25,7 @@ $base-color: #8A1538;
       font-size: 18px !important;
     }
     li:hover {
-      background-image: linear-gradient(to right, $base-color, white);
+      background-color: $base-color;
       color: white;
       box-shadow: #1b232780;
       #dashBoardIcon,

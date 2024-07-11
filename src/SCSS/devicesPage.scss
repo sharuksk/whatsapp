@@ -33,7 +33,7 @@ $base-color: #8A1538;
     font-size: 29px;
     flex: 0.4;
     text-align: center;
-    background-color: linear-gradient(to right, $base-color, white);
+    background-color: $base-color;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
   }

@@ -149,7 +149,7 @@ $base-color: #8A1538;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to right, $base-color, #544c4c);
+    background-color: $base-color;
   }
   .toDiv.send {
     display: flex;

@@ -90,7 +90,7 @@ $base-color: #8A1538;
     border-radius: 20px;
     //background-color: #1f8be1;
     cursor: pointer;
-    background: linear-gradient(to right, $base-color, #544c4c);
+    background-color: $base-color;
     color: white;
     text-align: center;
     padding: 8px 14px;

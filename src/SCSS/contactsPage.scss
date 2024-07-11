@@ -21,7 +21,7 @@ $base-color: #8A1538;
     padding: 0px;
     font-family: "Ubuntu", sans-serif !important;
     //background-color: #46a24a;
-    background: linear-gradient(to right, $base-color, #544c4c);
+    background-color: $base-color;
     border: none;
     color: white;
     font-size: 13px !important;
@@ -32,7 +32,7 @@ $base-color: #8A1538;
     border-radius: 20px;
   }
   .addBtn.bulk {
-    background-color: #40a8bc;
+    background-color: $base-color;
   }
   .addbtntitle {
     flex: 0.8;
@@ -217,7 +217,7 @@ $base-color: #8A1538;
     border-radius: 20px;
     border: none;
     //background-color: #1f8be1;
-    background: linear-gradient(to right, $base-color, #544c4c);
+    background-color: $base-color;
     color: white;
     text-align: center;
     padding: 8px 14px;
