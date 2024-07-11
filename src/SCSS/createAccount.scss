@@ -1,9 +1,10 @@
+$base-color: #8A1538;
 .create-account-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, #29fc18, #e5ee4a);
+  background: linear-gradient(to right, $base-color, #544c4c);
   font-family: "Ubuntu", sans-serif;
 
   .regisPage {
@@ -62,7 +63,7 @@
       padding: 11px 14px;
       font-size: 16px;
       //background-color: #1f8be1;
-      background-image: linear-gradient(to right, #29fc18, #e5ee4a);
+      background-image: linear-gradient(to right, $base-color, #544c4c);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -92,8 +93,8 @@
       font-size: 13px;
       border-radius: 20px;
       //background-color: #f5f5f5;
-      background: linear-gradient(to right, #29fc18, #e5ee4a);
-      color: black;
+      background: linear-gradient(to right, $base-color, #544c4c);
+      color: white;
       text-align: center;
       padding: 11px 14px;
       display: flex;

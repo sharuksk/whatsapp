@@ -1,3 +1,6 @@
+
+$base-color: #8A1538;
+
 #fileAreaPage {
   #leftComponent {
     .MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation0.MuiDrawer-paper {
@@ -22,7 +25,7 @@
       font-size: 18px !important;
     }
     li:hover {
-      background-image: linear-gradient(to right, #29fc18, #e5ee4a);
+      background-image: linear-gradient(to right, $base-color, white);
       color: white;
       box-shadow: #1b232780;
       #dashBoardIcon,

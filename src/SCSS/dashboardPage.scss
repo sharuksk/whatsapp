@@ -1,3 +1,5 @@
+$base-color: #8A1538;
+
 .dashBoardPage {
   display: flex;
   flex-direction: column;
@@ -19,53 +21,6 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     column-gap: 1%;
-  }
-  .activeDiv {
-    border: solid 1px green;
-    background: linear-gradient(
-      to bottom,
-      #b4ddb4 1%,
-      #83c783 17%,
-      #52b152 33%,
-      #008a00 53%,
-      #008a00 53%,
-      #005700 90%,
-      #002400 100%
-    );
-    // background-color: #4caf50;
-    border-radius: 5px;
-    width: 300px;
-    color: white;
-  }
-  .activeDiv.expiry {
-    border: solid 1px red;
-    background: linear-gradient(
-      to bottom,
-      #f85032 4%,
-      #f16f5c 30%,
-      #f02f17 80%,
-      #f02f17 93%
-    ); //background-color: #f44336;
-  }
-  .activeDiv.inactive {
-    border: solid 1px gray;
-    background: linear-gradient(
-      to bottom,
-      #d3d3d3 0%,
-      rgba(188, 171, 168, 0.655) 25%,
-      #504646 54%
-    );
-    //background-color: lightgrey;
-  }
-  .activeTop {
-    border-bottom: solid 1px green;
-    padding: 20px;
-  }
-  .activeTop.expiry {
-    border-bottom: solid 1px red;
-  }
-  .activeTop.inactive {
-    border-bottom: solid 1px gray;
   }
   .activeTop,
   .activeBottom {
@@ -104,7 +59,7 @@
     margin-top: 30px;
     //margin: 0 auto;
     &:hover {
-      box-shadow: 4px 4px 4px 4px #29fc18;
+      box-shadow: 4px 4px 4px 4px $base-color;
     }
   }
 }
@@ -178,9 +133,9 @@
     //   box-shadow:
     //   rgba(0, 0, 0, 0.16) 0px 1px 4px,
     // rgb(41, 252, 24) 0px 0px 0px 3px;
-    box-shadow: 4px 4px 4px 4px #29fc18;
+    box-shadow: 4px 4px 4px 4px $base-color;
   }
   .chart-area-db:hover {
-    box-shadow: 4px 4px 4px 4px #29fc18;
+    box-shadow: 4px 4px 4px 4px $base-color;
   }
 }

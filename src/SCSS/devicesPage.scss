@@ -1,3 +1,5 @@
+$base-color: #8A1538;
+
 .devicesPage {
   font-family: "Ubuntu", sans-serif !important;
   .header {
@@ -13,7 +15,7 @@
   .addBtn {
     padding: 0px;
     font-family: "Ubuntu", sans-serif !important;
-    background-image: linear-gradient(to right, #29fc18, #e5ee4a);
+    background-color:  $base-color;
     border: none;
     color: white;
     font-size: 13px !important;
@@ -31,7 +33,7 @@
     font-size: 29px;
     flex: 0.4;
     text-align: center;
-    background-color: linear-gradient(to right, #29fc18, #e5ee4a);
+    background-color: linear-gradient(to right, $base-color, white);
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
   }
@@ -106,7 +108,7 @@
   }
   .rocketBtn {
     border: none;
-    background-color: #29fc18;
+    background-color: $base-color;
     color: white;
     display: flex;
     align-items: center;
@@ -138,7 +140,7 @@
     background-color: #4caf50;
   }
   .paybtn {
-    background-color: #e5ee4a;
+    background-color: $base-color;
   }
   .tdE {
     margin-right: 4%;

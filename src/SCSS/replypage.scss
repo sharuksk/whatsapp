@@ -1,3 +1,4 @@
+$base-color: #8A1538;
 .replyPage {
   font-family: "Ubuntu", sans-serif !important;
   .header {
@@ -18,7 +19,7 @@
     padding: 0px;
     font-family: "Ubuntu", sans-serif !important;
     //background-color: #46a24a;
-    background: linear-gradient(to right, #29fc18, #e5ee4a);
+    background: linear-gradient(to right, $base-color, #544c4c);
     border: none;
     color: white;
     font-size: 13px !important;

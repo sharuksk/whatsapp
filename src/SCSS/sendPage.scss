@@ -1,3 +1,4 @@
+$base-color: #8A1538;
 .sendPage {
   font-family: "Ubuntu", sans-serif !important;
   .header {
@@ -20,7 +21,7 @@
   .chatBtn {
     width: 70%;
     font-size: 13px;
-    background-color: #29fc18;
+    background-color: $base-color;
     color: white;
     padding: 10px 4px;
     margin-bottom: 3%;
@@ -127,7 +128,7 @@
   }
   .head {
     color: white;
-    background-color: #e5ee4a;
+    background-color: $base-color;
     padding: 10px 20px;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
@@ -148,7 +149,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to right, #29fc18, #e5ee4a);
+    background: linear-gradient(to right, $base-color, #544c4c);
   }
   .toDiv.send {
     display: flex;

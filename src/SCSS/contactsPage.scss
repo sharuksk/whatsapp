@@ -1,3 +1,4 @@
+$base-color: #8A1538;
 .contactsPage,
 .createContactPage,
 .bulkContactPage {
@@ -20,7 +21,7 @@
     padding: 0px;
     font-family: "Ubuntu", sans-serif !important;
     //background-color: #46a24a;
-    background: linear-gradient(to right, #29fc18, #e5ee4a);
+    background: linear-gradient(to right, $base-color, #544c4c);
     border: none;
     color: white;
     font-size: 13px !important;
@@ -216,7 +217,7 @@
     border-radius: 20px;
     border: none;
     //background-color: #1f8be1;
-    background: linear-gradient(to right, #29fc18, #e5ee4a);
+    background: linear-gradient(to right, $base-color, #544c4c);
     color: white;
     text-align: center;
     padding: 8px 14px;

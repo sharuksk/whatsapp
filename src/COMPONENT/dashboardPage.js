@@ -214,7 +214,7 @@ export function DashBoardPage() {
               {
                 data: [2, 5.5, 2, 8.5, 1.5, 5],
                 area: true,
-                color: "#29fc18",
+                color: "#ad3055",
               },
             ]}
             height={400}
